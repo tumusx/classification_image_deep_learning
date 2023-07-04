@@ -1,6 +1,7 @@
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
@@ -38,6 +39,19 @@ index = np.argmax(prediction)
 class_name = class_names[index]
 confidence_score = prediction[0][index]
 
+plt.plot([0, 1], [confidence_score, confidence_score], color='blue')
+
+# Configurações do gráfico
+plt.title('Acurácia')
+plt.xlabel('Índice')
+plt.ylabel('Valor')
+
+# Definir limites dos eixos
+plt.xlim(0, 1)
+plt.ylim(min(confidence_score, 0), max(confidence_score, 1))
+
+# Exibir o gráfico
+plt.savefig('grafico.png')
 # Print prediction and confidence score
 print("Class:", class_name[2:], end="")
 print("Confidence Score:", confidence_score)
